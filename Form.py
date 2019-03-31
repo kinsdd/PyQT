@@ -7,7 +7,7 @@ def window():
 	l1 = QtWidgets.QLabel(w)
 	l2 = QtWidgets.QLabel(w)
 	b = QtWidgets.QPushButton(w)
-	b = setText("Push me")
+	b.setText("Push me")
 	l1.setText("Demo")
 	l2.setPixmap(QtGui.QPixmap('re.jpg'))
 	w.setWindowTitle("Demo")
