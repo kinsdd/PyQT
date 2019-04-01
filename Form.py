@@ -1,27 +1,40 @@
 import sys
-from PyQt5 import QtWidgets, QtGui
+from PyQt5 import QtWidgets
 
-def window():
-	app = QtWidgets.QApplication(sys.argv)
-	w = QtWidgets.QWidget()
-	l1 = QtWidgets.QLabel("Push me")
-	#l2 = QtWidgets.QLabel(w)
-	b = QtWidgets.QPushButton("Demo")
-	h_box = QtWidgets.QHBoxLayout()
-	h_box.addStretch()
-	h_box.addWidget(l1)
-	h_box.addStretch()
 
-	v_box = QtWidgets.QVBoxLayout()
-	v_box.addWidget(b)
-	v_box.addLayout(h_box)
-	w.setLayout(v_box)
-	#l2.setPixmap(QtGui.QPixmap('re.jpg'))
-	w.setWindowTitle("Demo")
-	#l1.move(100, 50)
-	#l2.move(120, 90)
-	#b.move(100,30)
-	w.show()
-	sys.exit(app.exec_())
-	
-window()
+class Window(QtWidgets.QWidget):
+
+    def __init__(self):
+        super().__init__()
+
+        self.init_ui()
+
+    def init_ui(self):
+        self.le = QtWidgets.QLineEdit()
+        self.b1 = QtWidgets.QPushButton('Clear')
+        self.b2 = QtWidgets.QPushButton('Print')
+
+        v_box = QtWidgets.QVBoxLayout()
+        v_box.addWidget(self.le)
+        v_box.addWidget(self.b1)
+        v_box.addWidget(self.b2)
+
+        self.setLayout(v_box)
+        self.setWindowTitle('PyQt5 Lesson 7')
+
+        self.b1.clicked.connect(self.btn_clk)
+        self.b2.clicked.connect(self.btn_clk)
+
+        self.show()
+
+    def btn_clk(self):
+        sender = self.sender()
+        if sender.text() == 'Print':
+            print(self.le.text())
+        else:
+            self.le.clear()
+
+
+app = QtWidgets.QApplication(sys.argv)
+a_window = Window()
+sys.exit(app.exec_())
