@@ -1,1 +1,1 @@
-# Design form with PyQT.
+# Design form with PyQT
