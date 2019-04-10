@@ -1,8 +1,8 @@
 import sys
-from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import (QLabel, QRadioButton, QPushButton, QVBoxLayout, QApplication, QWidget)
 
 
-class Window(QtWidgets.QWidget):
+class Window(QWidget):
 
     def __init__(self):
         super().__init__()
@@ -10,31 +10,30 @@ class Window(QtWidgets.QWidget):
         self.init_ui()
 
     def init_ui(self):
-        self.le = QtWidgets.QLineEdit()
-        self.b1 = QtWidgets.QPushButton('Clear')
-        self.b2 = QtWidgets.QPushButton('Print')
+        self.lbl = QLabel('Which do you like best?')
+        self.dog = QRadioButton('Dogs')
+        self.cat = QRadioButton('Cats')
+        self.btn = QPushButton('Select')
 
-        v_box = QtWidgets.QVBoxLayout()
-        v_box.addWidget(self.le)
-        v_box.addWidget(self.b1)
-        v_box.addWidget(self.b2)
+        layout = QVBoxLayout()
+        layout.addWidget(self.lbl)
+        layout.addWidget(self.dog)
+        layout.addWidget(self.cat)
+        layout.addWidget(self.btn)
 
-        self.setLayout(v_box)
-        self.setWindowTitle('PyQt5 Lesson 7')
+        self.setLayout(layout)
+        self.setWindowTitle('PyQt5 Lesson 10')
 
-        self.b1.clicked.connect(self.btn_clk)
-        self.b2.clicked.connect(self.btn_clk)
+        self.btn.clicked.connect(lambda: self.btn_clk(self.dog.isChecked(), self.lbl))
 
         self.show()
 
-    def btn_clk(self):
-        sender = self.sender()
-        if sender.text() == 'Print':
-            print(self.le.text())
+    def btn_clk(self, chk, lbl):
+        if chk:
+            lbl.setText('I guess you like dogs')
         else:
-            self.le.clear()
+            lbl.setText('So its cats for you')
 
-
-app = QtWidgets.QApplication(sys.argv)
+app = QApplication(sys.argv)
 a_window = Window()
 sys.exit(app.exec_())
